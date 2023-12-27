@@ -1,4 +1,4 @@
-import { useState ,useEffect } from 'react'
+import React, { useState ,useEffect }  from 'react'
 import './App.css'
 import { BsArrowLeftRight } from "react-icons/bs";
 // "https://flagsapi.com/:country_code/:style/:size.png"
@@ -11,6 +11,7 @@ const [dropdownOptions, setDropdownOptions] = useState([]);
 
 useEffect(() => {
   const options = [];
+
   for (let currCode in countryList) {
     options.push(
       <option key={currCode} value={currCode}>
@@ -18,8 +19,19 @@ useEffect(() => {
       </option>
     );
   }
-  setDropdownOptions(options);
-}, []);
+  
+  const defaultFromValue = 'USD';
+    const defaultToValue = 'INR';
+
+    const updatedOptions = options.map((option) => {
+      const selectName = option.props.value === defaultToValue ? 'to' : option.props.value === defaultFromValue ? 'from' : '';
+      return React.cloneElement(option, {
+        selected: selectName == 'to' || selectName == ' from'
+      });
+    });
+
+    setDropdownOptions(updatedOptions);
+  }, []);
 
   return (
     <>
@@ -50,7 +62,7 @@ useEffect(() => {
           </div>
           <div className="dropdown">
             <div className="select__container">
-              <select name="from" id="">
+              <select name="to">
                 {dropdownOptions}
               </select>
             </div>
