@@ -105,8 +105,12 @@ label {
     line-height: normal;
     padding: 0.3rem;
 }
+.select__container img {
+    max-width: 2rem;
+  }
 
 .select__container {
+    display: flex;
     border: 1px solid black;
     padding: 0.62rem;
 }
